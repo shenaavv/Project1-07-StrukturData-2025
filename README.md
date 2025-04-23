@@ -14,6 +14,12 @@
 ## Laporan hasil uji query
 
 ### 1. Manakah struktur data yang paling efisien dalam memproses skyline query? Mengapa?
+Struktur data yang paling efisien dalam memproses skyline query adalah Array.
+
+Array memungkinkan akses langsung (O(1)) ke elemen, sehingga sangat efisien untuk melakukan perbandingan dominasi antar data. Selain itu, array memiliki iterasi cepat karena elemen tersimpan berurutan di memori, dan dapat dioptimasi dengan sorting untuk mengurangi jumlah perbandingan.
+
+Dibandingkan struktur lain, array memiliki performansi terbaik secara waktu dan memori dalam kasus skyline query yang melibatkan banyak data dan perbandingan.
+
 
 ### 2. Hasil performa 6 struktur data
 
@@ -26,9 +32,17 @@
 | 5   | Hash Table                  |   0.000049  |
 | 6   | Map                         |   0.000938  |
 
-
+Catatan: Hasil waktu dapat bervariasi tergantung spesifikasi perangkat dan kondisi runtime.
 
 ### 3. Analisis hasil performa 6 struktur data
+Struktur data yang memiliki akses langsung seperti Array dan Map bekerja lebih efisien dalam melakukan perbandingan dominasi.
+
+Struktur seperti Linked List lebih lambat karena traversal elemen O(n).
+
+Struktur Stack dan Queue tidak terlalu efisien karena tidak mendukung pencarian fleksibel.
+
+Hash Table cepat dalam lookup, namun tidak cocok untuk urutan atau dominasi.
+
 
 ### 4. Screenshot input program
 
