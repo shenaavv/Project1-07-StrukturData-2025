@@ -3,9 +3,10 @@
 #include <sstream>
 #include <string>
 #include <map>
-#include <ctime> // Pakai clock_t saja, karena kamu belum belajar chrono
+#include <chrono> // Ganti dari <ctime> ke chrono
 
 using namespace std;
+using namespace chrono; // Biar penulisan lebih singkat
 
 struct Product {
     int id;
@@ -53,7 +54,7 @@ void loadProductsFromCSV(const string& filename, map<int, Product>& productMap) 
 }
 
 void displayProductsWithTiming(const map<int, Product>& productMap, int n) {
-    clock_t start = clock();
+    auto start = high_resolution_clock::now();
 
     cout << "ID\tLabel\tattribute 1\tattribute 2" << endl;
 
@@ -65,24 +66,24 @@ void displayProductsWithTiming(const map<int, Product>& productMap, int n) {
         count++;
     }
 
-    clock_t end = clock();
-    double duration = double(end - start) / CLOCKS_PER_SEC;
-    cout << "waktu eksekusi: " << duration << " detik" << endl;
+    auto end = high_resolution_clock::now();
+    duration<double> duration = end - start;
+    cout << "waktu eksekusi: " << duration.count() << " detik" << endl;
 }
 
 int main() {
     map<int, Product> productMap;
 
-    cout << "product map processing program" << endl;
+    cout << "product MAP processing program" << endl;
     cout << "==============================" << endl;
 
-    clock_t loadStart = clock();
+    auto loadStart = high_resolution_clock::now();
     loadProductsFromCSV("ind_1000_2_product.csv", productMap);
-    clock_t loadEnd = clock();
-    double loadDuration = double(loadEnd - loadStart) / CLOCKS_PER_SEC;
+    auto loadEnd = high_resolution_clock::now();
+    duration<double> loadDuration = loadEnd - loadStart;
 
     cout << "csv file loaded. total products: " << productMap.size() << endl;
-    cout << "loading time: " << loadDuration << " detik" << endl;
+    cout << "loading time: " << loadDuration.count() << " detik" << endl;
 
     displayProductsWithTiming(productMap, 10);
 
