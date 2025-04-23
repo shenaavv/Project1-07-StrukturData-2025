@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 #include <chrono>
+#include <iomanip> // Untuk setprecision
 
 using namespace std;
 using namespace chrono;
@@ -14,19 +15,19 @@ struct Produk {
     int harga;    // Semakin kecil semakin baik
     int rating;   // Semakin besar semakin baik
 
-    // Perbandingan untuk pengurutan dalam std::map
+    // Operator perbandingan agar std::map dapat mengurutkan
     bool operator<(const Produk& other) const {
         if (harga == other.harga)
-            return rating > other.rating;
-        return harga < other.harga;
+            return rating > other.rating; // Lebih tinggi rating lebih baik
+        return harga < other.harga;       // Lebih murah lebih baik
     }
 };
 
-// Fungsi untuk membaca data dari file CSV
+// Fungsi membaca data dari file CSV
 void bacaData(const string& namaFile, map<Produk, bool>& produkMap) {
     ifstream file(namaFile);
     string line;
-    getline(file, line); // Lewati header
+    getline(file, line); // skip header
 
     while (getline(file, line)) {
         size_t pos = 0;
@@ -50,13 +51,13 @@ void bacaData(const string& namaFile, map<Produk, bool>& produkMap) {
     }
 }
 
-// Cek apakah produk a mendominasi b
+// Fungsi untuk mengecek apakah produk a mendominasi produk b
 bool apakahDominasi(const Produk& a, const Produk& b) {
     return (a.harga <= b.harga && a.rating >= b.rating) &&
            (a.harga < b.harga || a.rating > b.rating);
 }
 
-// Skyline query dengan map
+// Fungsi skyline query
 void cariSkyline(map<Produk, bool>& produkMap, map<Produk, bool>& hasilSkyline) {
     for (auto& it : produkMap) {
         Produk saatIni = it.first;
@@ -92,8 +93,10 @@ int main() {
     auto mulai = high_resolution_clock::now();
     cariSkyline(produkMap, hasilSkyline);
     auto selesai = high_resolution_clock::now();
-    auto waktuEksekusi = duration_cast<duration<double>>(selesai - mulai).count();
 
+    double waktuEksekusi = duration_cast<duration<double>>(selesai - mulai).count();
+
+    // Tampilkan hasil
     cout << "=============================================\n";
     cout << " HASIL SKYLINE QUERY (1000 PRODUK)\n";
     cout << " Menggunakan Struktur Data Map\n";
@@ -101,8 +104,10 @@ int main() {
 
     int jumlahSkyline = hasilSkyline.size();
     cout << "Produk skyline ditemukan: " << jumlahSkyline << endl;
+    cout << fixed << setprecision(8);
     cout << "Waktu eksekusi: " << waktuEksekusi << " detik\n\n";
 
+    // Tampilkan 10 hasil pertama
     cout << "10 Produk Skyline Pertama:\n";
     cout << "ID\tLabel\t\tHarga\tRating\n";
     cout << "----------------------------------------\n";
@@ -115,6 +120,7 @@ int main() {
              << "\t\t" << p.first.harga << "\t" << p.first.rating << endl;
     }
 
+    // Opsi simpan hasil ke file
     char simpan;
     cout << "\nSimpan hasil lengkap ke file? (y/n): ";
     cin >> simpan;
