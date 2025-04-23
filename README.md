@@ -32,6 +32,10 @@
 
 ### 4. Screenshot input program
 
+## Hash Table
+
+   ![](assets/linkedlist/ss_input_hashtable.png)
+
 ### 5. Screenshot output program
 
 #### Linked List
@@ -47,6 +51,7 @@
    ![](assets/queue/output_skyline_queue.png)
 
 #### Hash Table
+
    ![](assets/hashtable/output_hashtable.png)
 
 #### Map
