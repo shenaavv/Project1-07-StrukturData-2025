@@ -21,7 +21,7 @@
 | --- | --------------------------- | ----------- |
 | 1   | Array                       |             |
 | 2   | Linked List                 |             |
-| 3   | Stack                       |   0.0003    |
+| 3   | Stack                       |   0.001     |
 | 4   | Queue                       |   0.00642   |
 | 5   | Hash Table                  |   0.000049  |
 | 6   | Map                         |   0.000465  |
@@ -36,7 +36,7 @@
 
 #### Stack
 
-   ![](assets/stack/output_skyline_stack.png)
+   ![](assets/stack/output_Skyline_Stack_.png)
 
 #### Queue
 
