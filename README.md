@@ -22,9 +22,9 @@
 | 1   | Array                       |             |
 | 2   | Linked List                 |             |
 | 3   | Stack                       |   0.001     |
-| 4   | Queue                       |   0.00642   |
+| 4   | Queue                       |   0.003289  |
 | 5   | Hash Table                  |   0.000049  |
-| 6   | Map                         |   0.000465  |
+| 6   | Map                         |   0.000938  |
 
 
 
