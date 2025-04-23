@@ -13,7 +13,7 @@
 
 ## Laporan hasil uji query
 
-### Manakah struktur data yang paling efisien dalam memproses skyline query? Mengapa?
+### 1. Manakah struktur data yang paling efisien dalam memproses skyline query? Mengapa?
 
 ### Hasil performa 6 struktur data
 
@@ -28,8 +28,8 @@
 
 
 
-### Analisis hasil performa 6 struktur data
+### 2. Analisis hasil performa 6 struktur data
 
-### Screenshot input program
+### 3. Screenshot input program
 
-### Screenshot output program
+### 4. Screenshot output program
