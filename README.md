@@ -34,9 +34,16 @@
 
 ### 5. Screenshot output program
 
+#### Stack
+
+   ![](assets/stack/output_skyline_stack.png)
+
 #### Queue
 
    ![](assets/queue/output_skyline_queue.png)
+
+#### Hah Table
+   ![](assets/hashtable/output_hashtable.png)
 
 #### Map
 
