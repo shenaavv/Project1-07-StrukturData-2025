@@ -20,7 +20,7 @@
 | No  | Nama                        |    Waktu    |
 | --- | --------------------------- | ----------- |
 | 1   | Array                       |             |
-| 2   | Linked List                 |             |
+| 2   | Linked List                 |   0.005008  |
 | 3   | Stack                       |   0.001     |
 | 4   | Queue                       |   0.003289  |
 | 5   | Hash Table                  |   0.000049  |
@@ -44,6 +44,10 @@
 
 #### Hash Table
    ![](assets/hashtable/output_hashtable.png)
+
+#### Linked List
+
+   ![](assets/linkedlist/linkedlist_skyline_output.png)
 
 #### Map
 
