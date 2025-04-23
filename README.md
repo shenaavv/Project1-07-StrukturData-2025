@@ -30,7 +30,7 @@ Dibandingkan struktur lain, array memiliki performansi terbaik secara waktu dan 
 | 3   | Stack                       |   0.001     |
 | 4   | Queue                       |   0.003289  |
 | 5   | Hash Table                  |   0.000049  |
-| 6   | Map                         |   0.000092  |
+| 6   | Map                         |   0.000068  |
 
 Catatan: Hasil waktu dapat bervariasi tergantung spesifikasi perangkat dan kondisi runtime.
 
