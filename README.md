@@ -11,30 +11,25 @@
 | 5   | M. Alfaeran Auriga Ruswandi | 5027241115 |
 
 
-# Laporan hasil uji query
+## Laporan hasil uji query
 
-##Manakah struktur data yang paling efisien dalam memproses skyline query? Mengapa?
+### Manakah struktur data yang paling efisien dalam memproses skyline query? Mengapa?
 
-## Hasil performa 6 struktur data
+### Hasil performa 6 struktur data
 
-## Analisis hasil performa 6 struktur data
+| No  | Nama                        |    Waktu    |
+| --- | --------------------------- | ----------- |
+| 1   | Array                       |             |
+| 1   | Linked List                 |             |
+| 1   | Stack                       |             |
+| 1   | Queue                       |   0.00642   |
+| 1   | Hash Table                  |   0.000049  |
+| 1   | Map                         |   0.000465  |
 
-## Screenshot input program
 
-## Screenshot output program
 
-## output hasil masing - masing query 
-- Array
-- Linked List
-- Stack
-- Queue
+### Analisis hasil performa 6 struktur data
 
-  Waktu komputasi : 0.006429 detik.
+### Screenshot input program
 
-- Hash Table
- 
-  Waktu komputasi:  0.000049 detik.
-  
-- Map
-
-  Waktu komputasi: 0.000465 detik.
+### Screenshot output program
