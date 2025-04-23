@@ -42,7 +42,7 @@
 
    ![](assets/queue/output_skyline_queue.png)
 
-#### Hah Table
+#### Hash Table
    ![](assets/hashtable/output_hashtable.png)
 
 #### Map
