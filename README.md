@@ -53,7 +53,7 @@ Hash Table cepat dalam lookup, namun tidak cocok untuk urutan atau dominasi.
 
 *Dibuat oleh : Kaisar Hanif Pratama 5027241029*
 
-   ![](assets/array/ss_output_array.png)
+   ![](assets/array/ss_output_array.png).
 
 #### Linked List
 
