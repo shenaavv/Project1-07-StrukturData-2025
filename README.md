@@ -25,7 +25,7 @@ Dibandingkan struktur lain, array memiliki performansi terbaik secara waktu dan 
 
 | No  | Nama                        |    Waktu    |
 | --- | --------------------------- | ----------- |
-| 1   | Array                       |             |
+| 1   | Array                       |   0.0000171 |
 | 2   | Linked List                 |   0.005008  |
 | 3   | Stack                       |   0.001     |
 | 4   | Queue                       |   0.003289  |
@@ -47,13 +47,16 @@ Hash Table cepat dalam lookup, namun tidak cocok untuk urutan atau dominasi.
 
 ### 4. Screenshot input program
 
+   ![](assets/hashtable/ss_input_hashtable.png)
+
+
 ### 5. Screenshot output program
 
 #### Array
 
 *Dibuat oleh : Kaisar Hanif Pratama 5027241029*
 
-   ![](assets/array/ss_output_array.png)
+   ![](assets/array/ss_output_array.png).
 
 #### Linked List
 
