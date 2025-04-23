@@ -35,26 +35,33 @@
 #### Hash Table
 
    ![](assets/hashtable/ss_input_hashtable.png)
-
 ### 5. Screenshot output program
 
+#### Array
+*Dibuat oleh : Kaisar Hanif Pratama 5027241029*
+
 #### Linked List
+*Dibuat oleh : Daniswara Fausta Novanto 5027241050*
 
    ![](assets/linkedlist/linkedlist_skyline_output.png)
 
 #### Stack
+*Dibuat oleh : Hafiz Ramadhan 5027241096*
 
    ![](assets/stack/output_Skyline_Stack_.png)
 
 #### Queue
+*Dibuat oleh : Kanafira Vanesha Putri 5027241010*
 
    ![](assets/queue/output_skyline_queue.png)
 
 #### Hash Table
+*Dibuat oleh : M. Alfaeran Auriga Ruswandi 5027241115*
 
    ![](assets/hashtable/output_hashtable.png)
 
 #### Map
+*Dibuat oleh : Kanafira Vanesha Putri 5027241010*
 
    ![](assets/map/output_skyline_map.png)
    
