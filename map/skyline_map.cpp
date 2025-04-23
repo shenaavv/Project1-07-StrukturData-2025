@@ -3,10 +3,10 @@
 #include <sstream>
 #include <string>
 #include <map>
-#include <chrono> // Ganti dari <ctime> ke chrono
+#include <chrono> 
 
 using namespace std;
-using namespace chrono; // Biar penulisan lebih singkat
+using namespace chrono;
 
 struct Product {
     int id;
