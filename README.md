@@ -47,7 +47,22 @@ Hash Table cepat dalam lookup, namun tidak cocok untuk urutan atau dominasi.
 
 ### 4. Screenshot input program
 
-   ![](assets/hashtable/ss_input_hashtable.png)
+#### Array
+
+#### Linked list
+<img src="assets/linkedlist/ss_input_linkedlist.png" width="300"/>
+
+#### stack
+<img src="assets/stack/ss_input_stack.png" width="300"/>
+
+#### queue
+<img src="assets/queue/ss_input_queue.png" width="300"/>
+
+#### Hash Table
+<img src="assets/hashtable/ss_input_hashtable.png" width="300"/>
+
+####  Map
+<img src="assets/map/ss_input_map.png" width="300"/>
 
 
 ### 5. Screenshot output program
