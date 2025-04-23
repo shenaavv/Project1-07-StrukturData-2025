@@ -6,7 +6,7 @@
 #include <chrono> 
 
 using namespace std;
-using namespace chrono; // biar gak nulis chrono:: tiap waktu
+using namespace chrono;
 
 // Struct untuk menyimpan data produk
 struct Product {
