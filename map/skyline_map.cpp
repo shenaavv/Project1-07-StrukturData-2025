@@ -1,91 +1,154 @@
 #include <iostream>
 #include <fstream>
-#include <sstream>
 #include <string>
 #include <map>
-#include <chrono> 
+#include <chrono>
 
 using namespace std;
 using namespace chrono;
 
-struct Product {
+// Struktur untuk menyimpan data produk
+struct Produk {
     int id;
-    string label;
-    int attr1;
-    int attr2;
-
-    Product() {}
-    Product(int _id, const string& _label, int _attr1, int _attr2)
-        : id(_id), label(_label), attr1(_attr1), attr2(_attr2) {}
+    string nama;
+    int harga;    // attr_1 (semakin kecil semakin baik)
+    int rating;   // attr_2 (semakin besar semakin baik)
+    
+    // Operator untuk perbandingan berdasarkan harga dan rating
+    bool operator<(const Produk& other) const {
+        if (harga == other.harga)
+            return rating > other.rating; // Rating yang lebih tinggi lebih diutamakan
+        return harga < other.harga; // Harga yang lebih rendah lebih diutamakan
+    }
 };
 
-void loadProductsFromCSV(const string& filename, map<int, Product>& productMap) {
-    ifstream file(filename);
-    if (!file.is_open()) {
-        cerr << "Error: Gagal membuka file " << filename << endl;
-        return;
-    }
-
+// Fungsi untuk membaca data dari file CSV
+void bacaData(const string& namaFile, map<Produk, bool>& produkMap) {
+    ifstream file(namaFile);
     string line;
-    getline(file, line); // lewati header
-
+    
+    // Lewati header
+    getline(file, line);
+    
+    // Membaca data dari file dan menambahkannya ke dalam map
     while (getline(file, line)) {
-        stringstream ss(line);
-        string item;
-
-        int id, attr1, attr2;
-        string label;
-
-        getline(ss, item, ',');
-        id = stoi(item);
-
-        getline(ss, label, ',');
-
-        getline(ss, item, ',');
-        attr1 = stoi(item);
-
-        getline(ss, item, ',');
-        attr2 = stoi(item);
-
-        productMap[id] = Product(id, label, attr1, attr2);
+        size_t pos = 0;
+        string tokens[4];  // Menyimpan 4 kolom per produk
+        int idx = 0;
+        
+        // Pisahkan baris berdasarkan koma
+        while ((pos = line.find(',')) != string::npos) {
+            tokens[idx++] = line.substr(0, pos);
+            line.erase(0, pos + 1);
+        }
+        tokens[idx] = line;
+        
+        if (idx >= 3) {
+            Produk p;
+            p.id = stoi(tokens[0]);
+            p.nama = tokens[1];
+            p.harga = stoi(tokens[2]);
+            p.rating = stoi(tokens[3]);
+            produkMap[p] = true; // Masukkan produk ke dalam map
+        }
     }
-
-    file.close();
 }
 
-void displayProductsWithTiming(const map<int, Product>& productMap, int n) {
-    auto start = high_resolution_clock::now();
+// Fungsi untuk mengecek apakah produk a mendominasi produk b
+bool apakahDominasi(const Produk& a, const Produk& b) {
+    return (a.harga <= b.harga && a.rating >= b.rating) && 
+           (a.harga < b.harga || a.rating > b.rating);
+}
 
-    cout << "ID\tLabel\tattribute 1\tattribute 2" << endl;
-
-    int count = 0;
-    for (const auto& pair : productMap) {
-        if (count >= n) break;
-        const Product& p = pair.second;
-        cout << p.id << "\t" << p.label << "\t" << p.attr1 << "\t\t" << p.attr2 << endl;
-        count++;
+// Fungsi utama skyline query menggunakan map
+void cariSkyline(map<Produk, bool>& produkMap, map<Produk, bool>& hasilSkyline) {
+    for (auto it = produkMap.begin(); it != produkMap.end(); ++it) {
+        Produk saatIni = it->first;
+        bool didominasi = false;
+        
+        // Cek dominasi dengan produk skyline yang sudah ada
+        for (auto& s : hasilSkyline) {
+            if (apakahDominasi(s.first, saatIni)) {
+                didominasi = true;
+                break;
+            }
+        }
+        
+        if (!didominasi) {
+            // Hapus produk skyline yang didominasi oleh produk saat ini
+            for (auto it2 = hasilSkyline.begin(); it2 != hasilSkyline.end();) {
+                if (apakahDominasi(saatIni, it2->first)) {
+                    it2 = hasilSkyline.erase(it2);
+                } else {
+                    ++it2;
+                }
+            }
+            hasilSkyline[saatIni] = true;
+        }
     }
-
-    auto end = high_resolution_clock::now();
-    duration<double> duration = end - start;
-    cout << "waktu eksekusi: " << duration.count() << " detik" << endl;
 }
 
 int main() {
-    map<int, Product> productMap;
-
-    cout << "product MAP processing program" << endl;
-    cout << "==============================" << endl;
-
-    auto loadStart = high_resolution_clock::now();
-    loadProductsFromCSV("ind_1000_2_product.csv", productMap);
-    auto loadEnd = high_resolution_clock::now();
-    duration<double> loadDuration = loadEnd - loadStart;
-
-    cout << "csv file loaded. total products: " << productMap.size() << endl;
-    cout << "loading time: " << loadDuration.count() << " detik" << endl;
-
-    displayProductsWithTiming(productMap, 10);
-
+    map<Produk, bool> produkMap;      // Menyimpan semua produk dari file
+    map<Produk, bool> hasilSkyline;   // Menyimpan produk skyline
+    
+    string namaFile = "ind_1000_2_product.csv";
+    
+    // Baca data dari file
+    bacaData(namaFile, produkMap);
+    
+    // Mulai pengukuran waktu menggunakan chrono
+    auto mulai = high_resolution_clock::now();
+    
+    // Cari produk skyline
+    cariSkyline(produkMap, hasilSkyline);
+    
+    // Hitung waktu eksekusi
+    auto selesai = high_resolution_clock::now();
+    auto waktuEksekusi = duration_cast<duration<double>>(selesai - mulai).count();
+    
+    // Tampilkan hasil
+    cout << "=============================================\n";
+    cout << " HASIL SKYLINE QUERY (1000 PRODUK)\n";
+    cout << " Menggunakan Struktur Data Map\n";
+    cout << "=============================================\n\n";
+    
+    // Hitung jumlah produk di hasil skyline
+    int jumlahSkyline = hasilSkyline.size();
+    cout << "Produk skyline ditemukan: " << jumlahSkyline << endl;
+    cout << "Waktu eksekusi: " << waktuEksekusi << " detik\n\n";
+    
+    // Tampilkan 10 produk skyline pertama sebagai contoh
+    cout << "10 Produk Skyline Pertama:\n";
+    cout << "ID\tLabel\t\tAtrribut 1\tAtrribut 2\n";
+    cout << "----------------------------------------\n";
+    
+    int contoh = min(10, jumlahSkyline);
+    int i = 0;
+    for (auto& p : hasilSkyline) {
+        if (i++ >= contoh) break;
+        cout << p.first.id << "\t" << p.first.nama 
+             << "\t" << p.first.harga << "\t" << p.first.rating << endl;
+    }
+    
+    // Opsi: Simpan hasil ke file
+    char simpan;
+    cout << "\nSimpan hasil lengkap ke file? (y/n): ";
+    cin >> simpan;
+    
+    if (simpan == 'y' || simpan == 'Y') {
+        ofstream outFile("hasil_skyline_map.txt");
+        outFile << "Daftar Produk Skyline (Total: " << jumlahSkyline << ")\n";
+        outFile << "ID\tLabel\t\tAtrribut 1\tAtrribut 2\n";
+        outFile << "----------------------------------------\n";
+        
+        for (auto& p : hasilSkyline) {
+            outFile << p.first.id << "\t" << p.first.nama << "\t" 
+                    << p.first.harga << "\t" << p.first.rating << "\n";
+        }
+        
+        cout << "Hasil telah disimpan ke file 'hasil_skyline_map.txt'\n";
+    }
+    
     return 0;
 }

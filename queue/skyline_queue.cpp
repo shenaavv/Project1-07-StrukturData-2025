@@ -1,101 +1,154 @@
 #include <iostream>
 #include <fstream>
-#include <sstream>
 #include <string>
 #include <queue>
 #include <chrono> 
 
 using namespace std;
-using namespace chrono;
+using namespace chrono; 
 
-// Struct untuk menyimpan data produk
-struct Product {
+// Struktur untuk menyimpan data produk
+struct Produk {
     int id;
-    string label;
-    int attr1;
-    int attr2;
-
-    Product(int _id, string _label, int _attr1, int _attr2)
-        : id(_id), label(_label), attr1(_attr1), attr2(_attr2) {}
-
-    void display() const {
-        cout << "ID: " << id
-             << ", Name: " << label
-             << ", Attribute 1: " << attr1
-             << ", Attribute 2: " << attr2 << endl;
-    }
+    string nama;
+    int harga;    // attr_1 (semakin kecil semakin baik)
+    int rating;   // attr_2 (semakin besar semakin baik)
 };
 
-// Fungsi untuk membaca CSV ke dalam queue
-void loadProductsFromCSV(const string& filename, queue<Product>& productQueue) {
-    ifstream file(filename);
-    if (!file.is_open()) {
-        cerr << "Error: Could not open file " << filename << endl;
-        return;
-    }
-
+// Fungsi untuk membaca data dari file CSV
+void bacaData(const string& namaFile, queue<Produk>& antrian) {
+    ifstream file(namaFile);
     string line;
-    getline(file, line); // skip header
-
+    
+    // Lewati header
+    getline(file, line);
+    
+    // Membaca data dari file dan menambahkannya ke dalam queue
     while (getline(file, line)) {
-        stringstream ss(line);
-        string item;
-
-        int id, attr1, attr2;
-        string label;
-
-        getline(ss, item, ',');
-        id = stoi(item);
-
-        getline(ss, label, ',');
-
-        getline(ss, item, ',');
-        attr1 = stoi(item);
-
-        getline(ss, item, ',');
-        attr2 = stoi(item);
-
-        productQueue.push(Product(id, label, attr1, attr2));
+        size_t pos = 0;
+        string tokens[4];  // Menyimpan 4 kolom per produk
+        int idx = 0;
+        
+        // Pisahkan baris berdasarkan koma
+        while ((pos = line.find(',')) != string::npos) {
+            tokens[idx++] = line.substr(0, pos);
+            line.erase(0, pos + 1);
+        }
+        tokens[idx] = line;
+        
+        if (idx >= 3) {
+            Produk p;
+            p.id = stoi(tokens[0]);
+            p.nama = tokens[1];
+            p.harga = stoi(tokens[2]);
+            p.rating = stoi(tokens[3]);
+            antrian.push(p);
+        }
     }
-
-    file.close();
 }
 
-// Fungsi untuk menampilkan produk dengan waktu eksekusi
-void displayProductsWithTiming(queue<Product>& productQueue, int n) {
-    auto start = high_resolution_clock::now();
+// Fungsi untuk mengecek apakah produk a mendominasi produk b
+bool apakahDominasi(const Produk& a, const Produk& b) {
+    return (a.harga <= b.harga && a.rating >= b.rating) && 
+           (a.harga < b.harga || a.rating > b.rating);
+}
 
-    cout << "ID\tLabel\tAttribute 1\tAttribute 2" << endl;
-
-    queue<Product> tempQueue = productQueue;
-
-    for (int i = 0; i < n && !tempQueue.empty(); ++i) {
-        Product current = tempQueue.front();
-        tempQueue.pop();
-        cout << current.id << "\t" << current.label << "\t" << current.attr1 << "\t" << current.attr2 << endl;
+// Fungsi utama skyline query menggunakan queue
+void cariSkyline(queue<Produk>& antrian, queue<Produk>& hasilSkyline) {
+    while (!antrian.empty()) {
+        Produk saatIni = antrian.front();
+        antrian.pop();
+        bool didominasi = false;
+        
+        // Cek dominasi dengan produk skyline yang sudah ada
+        queue<Produk> tempSkyline = hasilSkyline;  // Salin hasil skyline ke sementara
+        while (!tempSkyline.empty()) {
+            if (apakahDominasi(tempSkyline.front(), saatIni)) {
+                didominasi = true;
+                break;
+            }
+            tempSkyline.pop();
+        }
+        
+        if (!didominasi) {
+            // Hapus produk skyline yang didominasi oleh produk saat ini
+            queue<Produk> skylineBaru;
+            while (!hasilSkyline.empty()) {
+                if (!apakahDominasi(saatIni, hasilSkyline.front())) {
+                    skylineBaru.push(hasilSkyline.front());
+                }
+                hasilSkyline.pop();
+            }
+            skylineBaru.push(saatIni);
+            hasilSkyline = skylineBaru;
+        }
     }
-
-    auto stop = high_resolution_clock::now();
-    duration<double> execTime = stop - start;
-
-    cout << "Waktu eksekusi: " << execTime.count() << " detik" << endl;
 }
 
 int main() {
-    queue<Product> productQueue;
-
-    cout << "Product Queue Processing Program" << endl;
-    cout << "================================" << endl;
-
-    auto loadStart = high_resolution_clock::now();
-    loadProductsFromCSV("ind_1000_2_product.csv", productQueue);
-    auto loadEnd = high_resolution_clock::now();
-    duration<double> loadDuration = loadEnd - loadStart;
-
-    cout << "CSV file loaded. Total products: " << productQueue.size() << endl;
-    cout << "Loading time: " << loadDuration.count() << " detik" << endl;
-
-    displayProductsWithTiming(productQueue, 10);
-
+    queue<Produk> antrian;
+    queue<Produk> hasilSkyline;
+    
+    string namaFile = "ind_1000_2_product.csv";
+    
+    // Baca data dari file
+    bacaData(namaFile, antrian);
+    
+    // Mulai pengukuran waktu menggunakan chrono
+    auto mulai = high_resolution_clock::now();
+    
+    // Cari produk skyline
+    cariSkyline(antrian, hasilSkyline);
+    
+    // Hitung waktu eksekusi
+    auto selesai = high_resolution_clock::now();
+    auto waktuEksekusi = duration_cast<duration<double>>(selesai - mulai).count();
+    
+    // Tampilkan hasil
+    cout << "=============================================\n";
+    cout << " HASIL SKYLINE QUERY (1000 PRODUK)\n";
+    cout << " Menggunakan Struktur Data Queue\n";
+    cout << "=============================================\n\n";
+    
+    // Hitung jumlah produk di hasil skyline
+    int jumlahSkyline = hasilSkyline.size();
+    cout << "Produk skyline ditemukan: " << jumlahSkyline << endl;
+    cout << "Waktu eksekusi: " << waktuEksekusi << " detik\n\n";
+    
+    // Tampilkan 10 produk skyline pertama sebagai contoh
+    cout << "10 Produk Skyline Pertama:\n";
+    cout << "ID\tLabel\t\tAtrribut 1\tAtrribut 2\n";
+    cout << "----------------------------------------\n";
+    
+    int contoh = min(10, jumlahSkyline);
+    for (int i = 0; i < contoh; i++) {
+        Produk p = hasilSkyline.front();
+        hasilSkyline.pop();
+        cout << p.id << "\t" << p.nama 
+             << "\t" << p.harga << "\t" << p.rating << endl;
+    }
+    
+    // Opsi: Simpan hasil ke file
+    char simpan;
+    cout << "\nSimpan hasil lengkap ke file? (y/n): ";
+    cin >> simpan;
+    
+    if (simpan == 'y' || simpan == 'Y') {
+        ofstream outFile("hasil_skyline_queue.txt");
+        outFile << "Daftar Produk Skyline (Total: " << jumlahSkyline << ")\n";
+        outFile << "ID\tLabel\t\tAtrribut 1\tAtrribut 2\n";
+        outFile << "----------------------------------------\n";
+        
+        queue<Produk> tempHasilSkyline = hasilSkyline;
+        while (!tempHasilSkyline.empty()) {
+            Produk p = tempHasilSkyline.front();
+            tempHasilSkyline.pop();
+            outFile << p.id << "\t" << p.nama << "\t" 
+                    << p.harga << "\t" << p.rating << "\n";
+        }
+        
+        cout << "Hasil telah disimpan ke file 'hasil_skyline_queue.txt'\n";
+    }
+    
     return 0;
 }
