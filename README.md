@@ -25,7 +25,7 @@ Dibandingkan struktur lain, array memiliki performansi terbaik secara waktu dan 
 
 | No  | Nama                        |    Waktu    |
 | --- | --------------------------- | ----------- |
-| 1   | Array                       |             |
+| 1   | Array                       |   0.0000171 |
 | 2   | Linked List                 |   0.005008  |
 | 3   | Stack                       |   0.001     |
 | 4   | Queue                       |   0.003289  |
