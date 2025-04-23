@@ -3,7 +3,7 @@
 #include <sstream>
 #include <string>
 #include <queue>
-#include <chrono> // ganti <ctime> dengan <chrono>
+#include <chrono> 
 
 using namespace std;
 using namespace chrono; // biar gak nulis chrono:: tiap waktu
