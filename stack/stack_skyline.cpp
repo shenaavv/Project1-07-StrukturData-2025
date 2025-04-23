@@ -84,26 +84,6 @@ void printSkyline(const vector<Baju>& skyline) {
     cout << "\nTotal Produk di Skyline: " << skyline.size() << endl;
 }
 
-double benchmark(stack<Baju>& originalData, vector<Baju>& finalSkyline, int loopCount = 10) {
-    double totalTime = 0.0;
-
-    for (int i = 0; i < loopCount; ++i) {
-        stack<Baju> tempStack = originalData;
-        auto start = chrono::high_resolution_clock::now();
-
-        auto skyline = skylineQuery(tempStack);
-
-        auto end = chrono::high_resolution_clock::now();
-        totalTime += chrono::duration<double>(end - start).count();
-
-        if (i == loopCount - 1) {
-            finalSkyline = skyline;
-        }
-    }
-
-    return totalTime / loopCount;
-}
-
 int main() {
     stack<Baju> originalData = loadData("ind_1000_2_product.csv");
 
@@ -111,13 +91,21 @@ int main() {
         return 1; // data tidak berhasil dibaca
     }
 
-    vector<Baju> finalSkyline;
-    double avgTime = benchmark(originalData, finalSkyline);
+    auto start = chrono::high_resolution_clock::now();
+
+    stack<Baju> tempStack = originalData;
+    vector<Baju> finalSkyline = skylineQuery(tempStack);
+
+    auto end = chrono::high_resolution_clock::now();
+    chrono::duration<double> durasi = end - start;
 
     printSkyline(finalSkyline);
 
     cout << fixed << setprecision(10);
-    cout << "Rata-rata waktu komputasi (detik): " << avgTime << endl;   
+    cout << "Waktu komputasi (detik): " << durasi.count() << endl;
+
+    chrono::duration<double, std::milli> ms = end - start;
+    cout << "Waktu komputasi (milidetik): " << fixed << setprecision(4) << ms.count() << " ms" << endl;
 
     return 0;
 }
