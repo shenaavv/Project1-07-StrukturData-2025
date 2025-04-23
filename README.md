@@ -15,21 +15,30 @@
 
 ### 1. Manakah struktur data yang paling efisien dalam memproses skyline query? Mengapa?
 
-### Hasil performa 6 struktur data
+### 2. Hasil performa 6 struktur data
 
 | No  | Nama                        |    Waktu    |
 | --- | --------------------------- | ----------- |
 | 1   | Array                       |             |
-| 1   | Linked List                 |             |
-| 1   | Stack                       |             |
-| 1   | Queue                       |   0.00642   |
-| 1   | Hash Table                  |   0.000049  |
-| 1   | Map                         |   0.000465  |
+| 2   | Linked List                 |             |
+| 3   | Stack                       |             |
+| 4   | Queue                       |   0.00642   |
+| 5   | Hash Table                  |   0.000049  |
+| 6   | Map                         |   0.000465  |
 
 
 
-### 2. Analisis hasil performa 6 struktur data
+### 3. Analisis hasil performa 6 struktur data
 
-### 3. Screenshot input program
+### 4. Screenshot input program
 
-### 4. Screenshot output program
+### 5. Screenshot output program
+
+#### Queue
+
+   ![](assets/queue/output_skyline_queue.png)
+
+#### Map
+
+   ![](assets/map/output_skyline_map.png)
+   
