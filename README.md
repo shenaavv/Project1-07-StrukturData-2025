@@ -34,7 +34,8 @@
 
 #### Hash Table
 
-   ![](assets/hashtable/ss_input_hashtable.png)
+<img src="assets/hashtable/ss_input_hashtable.png" = "300"/>
+
 ### 5. Screenshot output program
 
 #### Array
