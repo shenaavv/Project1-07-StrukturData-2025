@@ -13,13 +13,28 @@
 
 # Laporan hasil uji query
 
+##Manakah struktur data yang paling efisien dalam memproses skyline query? Mengapa?
+
+## Hasil performa 6 struktur data
+
+## Analisis hasil performa 6 struktur data
+
+## Screenshot input program
+
+## Screenshot output program
+
 ## output hasil masing - masing query 
 - Array
 - Linked List
 - Stack
 - Queue
+
+  Waktu komputasi : 0.006429 detik.
+
 - Hash Table
  
-  waktu komputasi:  0.000049 detik.
-
+  Waktu komputasi:  0.000049 detik.
+  
 - Map
+
+  Waktu komputasi: 0.000465 detik.
