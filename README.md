@@ -47,16 +47,12 @@ Hash Table cepat dalam lookup, namun tidak cocok untuk urutan atau dominasi.
 
 ### 4. Screenshot input program
 
-#### Hash Table
-
-   <img src="assets/hashtable/ss_input_hashtable.png" width="300"/>
-
-
 ### 5. Screenshot output program
 
 #### Array
 
 *Dibuat oleh : Kaisar Hanif Pratama 5027241029*
+      ![](assets/array/ss_array_output.png)
 
 #### Linked List
 
