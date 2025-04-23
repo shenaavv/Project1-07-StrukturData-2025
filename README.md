@@ -47,6 +47,9 @@ Hash Table cepat dalam lookup, namun tidak cocok untuk urutan atau dominasi.
 
 ### 4. Screenshot input program
 
+   ![](assets/hashtable/ss_input_hashtable.png)
+
+
 ### 5. Screenshot output program
 
 #### Array
