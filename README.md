@@ -19,5 +19,7 @@
 - Stack
 - Queue
 - Hash Table
+ 
   waktu komputasi:  0.000049 detik.
+
 - Map
