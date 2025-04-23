@@ -48,6 +48,7 @@ Hash Table cepat dalam lookup, namun tidak cocok untuk urutan atau dominasi.
 ### 4. Screenshot input program
 
 #### Array
+<img src="assets/array/ss_input_array.png" width="300"/>
 
 #### Linked list
 <img src="assets/linkedlist/ss_input_linkedlist.png" width="300"/>
