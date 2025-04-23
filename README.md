@@ -9,3 +9,15 @@
 | 3   | Daniswara Fausta Novanto    | 5027241050 |
 | 4   | Hafiz Ramadhan              | 5027241096 |
 | 5   | M. Alfaeran Auriga Ruswandi | 5027241115 |
+
+
+# Laporan hasil uji query
+
+## output hasil masing - masing query 
+- Array
+- Linked List
+- Stack
+- Queue
+- Hash Table
+  waktu komputasi:  0.000049 detik.
+- Map
