@@ -34,7 +34,7 @@
 
 #### Hash Table
 
-   ![](assets/Hashtable/ss_input_hashtable.png)
+   ![](assets/hashtable/ss_input_hashtable.png)
 
 ### 5. Screenshot output program
 
