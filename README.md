@@ -32,9 +32,9 @@
 
 ### 4. Screenshot input program
 
-## Hash Table
+#### Hash Table
 
-   ![](assets/linkedlist/ss_input_hashtable.png)
+   ![](assets/Hashtable/ss_input_hashtable.png)
 
 ### 5. Screenshot output program
 
