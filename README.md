@@ -34,7 +34,8 @@
 
 #### Hash Table
 
-<img src="assets/hashtable/ss_input_hashtable.png" = "300"/>
+   <img src="assets/hashtable/ss_input_hashtable.png" width="300"/>
+
 
 ### 5. Screenshot output program
 
